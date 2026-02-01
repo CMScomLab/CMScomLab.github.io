@@ -3,15 +3,25 @@ site_url: https://lab.cmscom.jp
 repo_url: https://github.com/CMScomLab/cmscomlab.github.io
 edit_uri: edit/main/docs/ # 編集ボタンのリンク先
 
+copyright: Copyright &copy; 2026 <a href="https://www.cmscom.jp">CMScom</a>
+
 theme:
   name: material
   language: ja
   features:
     - navigation.tabs        # 上部にグローバルナビゲーションを表示
+    - navigation.tabs.sticky # ナビゲーションを固定
+    - navigation.sections    # サイドバーのセクション化
+    - navigation.indexes     # indexファイルをセクションリンクにする
     - navigation.top         # 「トップに戻る」ボタン
     - search.suggest         # 検索サジェスト
   palette: 
     scheme: default          # default(白系) / slate(黒系)
+    primary: indigo
+    accent: indigo
+
+extra_css:
+  - stylesheets/extra.css
 
 # 拡張機能
 markdown_extensions:
@@ -35,6 +45,7 @@ plugins:
 # ナビゲーション構造
 nav:
   - Home: index.md
+  - About: about.md
   - Projects: 
       - projects/index.md
       - 'net-vis': projects/net-vis.md

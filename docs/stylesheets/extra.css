@@ -1,0 +1,47 @@
+/* グローバルナビゲーション（上部）のカスタマイズ */
+.md-tabs__link {
+  font-size: 0.85rem;      /* 文字サイズを少し大きく */
+  margin: 0 0.2rem;       /* ボタン同士の間隔 */
+  padding: 0.4rem 0.8rem; /* 内側の余白を増やしてボタン感を出す */
+  border-radius: 4px;     /* 角丸 */
+  transition: background-color 0.25s;
+  opacity: 1; /* 不透明度を上げてくっきりさせる */
+}
+
+/* ホバー時のスタイル */
+.md-tabs__link:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  opacity: 1;
+}
+
+/* アクティブ（現在地）のスタイル */
+.md-tabs__item--active .md-tabs__link {
+  background-color: rgba(255, 255, 255, 0.25);
+  font-weight: 700;
+  opacity: 1;
+}
+
+/* サイドナビゲーション（左側）のカスタマイズ */
+.md-nav__link {
+  padding: 6px 12px; /* クリックエリアを広げる */
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+/* サイドナビのホバー時 */
+.md-nav__link:hover {
+  background-color: rgba(0, 0, 0, 0.05); /* 薄いグレーの背景 */
+  color: var(--md-primary-fg-color);
+}
+
+/* サイドナビのアクティブ時 */
+.md-nav__item--active > .md-nav__link {
+  font-weight: bold;
+  background-color: rgba(var(--md-primary-fg-color--rgb), 0.1); /* テーマカラーの薄い背景 */
+  color: var(--md-primary-fg-color);
+}
+
+/* サイドナビの「Projects」などの親項目のスタイル調整 */
+.md-nav__item .md-nav__link--active {
+    font-weight: bold;
+}
