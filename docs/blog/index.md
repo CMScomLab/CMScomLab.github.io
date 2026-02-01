@@ -1,3 +1,7 @@
+---
+blog: true
+---
+
 # Blog
 
-CMScomLabのブログ記事一覧です。
+CMScomLabの活動記録や技術記事などのブログです。

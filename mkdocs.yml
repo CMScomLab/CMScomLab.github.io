@@ -27,7 +27,7 @@ plugins:
   - search
   - git-revision-date-localized
   - blog:
-      blog_dir: blog/posts
+      blog_dir: blog
       post_url_format: "{date}/{slug}"
       archive: true
       categories: true
@@ -39,5 +39,4 @@ nav:
       - projects/index.md
       - 'net-vis': projects/net-vis.md
       - 'LSH Cascade PoC': projects/lsh-cascade-poc.md
-  - Blog: 
-      - blog/index.md
+  - Blog: blog/index.md
