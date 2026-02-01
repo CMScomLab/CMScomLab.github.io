@@ -37,6 +37,7 @@ nav:
   - Home: index.md
   - Projects: 
       - projects/index.md
-      - 'Project A': projects/project-a.md
+      - 'net-vis': projects/net-vis.md
+      - 'LSH Cascade PoC': projects/lsh-cascade-poc.md
   - Blog: 
       - blog/index.md
