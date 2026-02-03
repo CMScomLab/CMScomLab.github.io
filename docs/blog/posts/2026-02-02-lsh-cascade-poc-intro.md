@@ -92,7 +92,7 @@ E5-baseモデル（768次元）に対して、ITQ-LSHとOverlapフィルタを�
 
 技術的な深掘りについては、また別のエントリーで詳しく解説したいと思います。
 
-![LSH Cascade PoCの実験まとめ](../assets/images/lsh-cascade-experiment.png)
+![LSH Cascade PoCの実験まとめ](../../assets/images/lsh-cascade-result.png)
 
 ## 今後の展望
 
