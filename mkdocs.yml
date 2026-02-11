@@ -20,6 +20,11 @@ theme:
     primary: indigo
     accent: indigo
 
+extra:
+  analytics:
+    provider: google
+    property: G-Z0GQJHB711 # Google Analytics 4 の測定 ID に書き換えてください
+
 extra_css:
   - stylesheets/extra.css
 
