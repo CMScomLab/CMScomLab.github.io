@@ -15,3 +15,8 @@
 ## 現在の状況
 
 初期の検証として、Google SigLIP モデルを使用した画像検索システムのプロトタイプ開発を行っています。現状の比較検証では、日本語のクエリに対して SigLIP が比較的良好なマッチング結果を示しています。
+
+## 関連ブログ記事
+
+* [Image Vector PoC を開始しました（2026-02-11）](../blog/posts/2026-02-11-image-vector-poc-start.md)
+* [Image Vector PoC: Gradioによるデモアプリの構築と実験結果（2026-02-13）](../blog/posts/2026-02-13-image-vector-demo.md)
