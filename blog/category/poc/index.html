@@ -1,0 +1,854 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://lab.cmscom.jp/blog/category/poc/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/cmscom_lab.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>PoC - CMScomLab</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-Z0GQJHB711"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-Z0GQJHB711",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-Z0GQJHB711",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#poc" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="CMScomLab" class="md-header__button md-logo" aria-label="CMScomLab" data-md-component="logo">
+      
+  <img src="../../../assets/images/cmscom_lab.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CMScomLab
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PoC
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/CMScomLab/cmscomlab.github.io" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../about/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../projects/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Projects
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Blog
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="CMScomLab" class="md-nav__button md-logo" aria-label="CMScomLab" data-md-component="logo">
+      
+  <img src="../../../assets/images/cmscom_lab.svg" alt="logo">
+
+    </a>
+    CMScomLab
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/CMScomLab/cmscomlab.github.io" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../projects/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Projects
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../projects/net-vis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    net-vis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../projects/lsh-cascade-poc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LSH Cascade PoC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content" data-md-component="content">
+    <div class="md-content__inner">
+      <header class="md-typeset">
+        <h1 id="poc">PoC</h1>
+      </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2026-02-19 00:00:00+00:00">2026年2月19日</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../projects/" class="md-meta__link">Projects</a>, 
+              <a href="./" class="md-meta__link">PoC</a>, 
+              <a href="../ai/" class="md-meta__link">AI</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              このページは約1分で読めます
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="image-vector-siglip-2"><a class="toclink" href="../../2026/02/19/image-vector-%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E9%80%B2%E6%8D%97-%E9%A1%94%E8%AA%8D%E8%AD%98%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E5%AE%9F%E8%A1%8C%E3%81%9D%E3%81%97%E3%81%A6-siglip-2/">Image Vector プロジェクト進捗: 顔認識、ブラウザ実行、そして SigLIP 2</a></h2>
+<p>前回 <a href="../../../projects/image-vector-poc/">2026-02-13</a> での報告以降、Image Vector プロジェクトでは新たな可能性を探るためにいくつかの重要な実験を行いました。今回はその進捗と成果について共有します。</p>
+<h3 id="1"><a class="toclink" href="../../2026/02/19/image-vector-%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E9%80%B2%E6%8D%97-%E9%A1%94%E8%AA%8D%E8%AD%98%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E5%AE%9F%E8%A1%8C%E3%81%9D%E3%81%97%E3%81%A6-siglip-2/#1">1. 顔認識機能の到達点</a></h3>
+<p>まず、顔認識（Face Recognition）の実装について検証を行いました。</p>
+<ul>
+<li><strong>実験ノート</strong>: <a href="https://github.com/cmscom/image-vector-poc/blob/main/notebooks/58-face-recognition-summary.ipynb">58-face-recognition-summary.ipynb</a></li>
+</ul>
+<p>結論として、現在のOSSモデルを利用した顔認識機能は <strong>非常に高いレベル</strong> に達していることが確認できました。
+CMSにおいて「誰が写っているか」を自動でタグ付けしたり、特定の人物の写真を瞬時に検索したりする機能の実装において、現在のモデルは十分実用的な性能を持っています。これにより、単なる「類似画像検索」だけでなく、「人物検索」という強力な軸をシステムに組み込む準備が整いました。</p>
+<h3 id="2-python-javascript-transformersjs"><a class="toclink" href="../../2026/02/19/image-vector-%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E9%80%B2%E6%8D%97-%E9%A1%94%E8%AA%8D%E8%AD%98%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E5%AE%9F%E8%A1%8C%E3%81%9D%E3%81%97%E3%81%A6-siglip-2/#2-python-javascript-transformersjs">2. Python と JavaScript の架け橋: Transformers.js</a></h3>
+<p>次に、アーキテクチャ面での大きな収穫です。ONNX Runtime と Transformers.js を用いた検証を行いました。</p>
+<ul>
+<li><strong>実験ノート</strong>: <a href="https://github.com/cmscom/image-vector-poc/blob/main/notebooks/41-clip-l-js-evaluation.ipynb">41-clip-l-js-evaluation.ipynb</a></li>
+</ul>
+<p>重要な発見は、<strong>Transformers.jsを使ったJSでの実装も十分に可能である</strong> という点です。具体的には、<strong>Python (PyTorch) で生成した画像ベクトルと、JavaScript (Transformers.js) で生成したテキスト検索クエリの埋め込みベクトルが完全な互換性を持つ</strong> ことが確認されました。</p>
+<p>これは、重い画像処理やインデックス作成はサーバーサイド（Python）でバッチ処理しておき、ユーザーが検索窓に入力したキーワードのベクトル化は、サーバーを介さずにユーザーのブラウザ上（JavaScript）で完結させるという構成が可能であることを意味します。サーバー負荷を抑えつつ、高速な検索体験を提供できる可能性があります。</p>
+<h3 id="3-siglip-2"><a class="toclink" href="../../2026/02/19/image-vector-%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E9%80%B2%E6%8D%97-%E9%A1%94%E8%AA%8D%E8%AD%98%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E5%AE%9F%E8%A1%8C%E3%81%9D%E3%81%97%E3%81%A6-siglip-2/#3-siglip-2">3. モデルの再考: SigLIP 2</a></h3>
+<p>最後に、より高性能なモデルとして <strong>SigLIP 2</strong> の検証を行いました。</p>
+<ul>
+<li><strong>実験ノート</strong>: <a href="https://github.com/cmscom/image-vector-poc/blob/main/notebooks/68-siglip2-large-384-onnx.ipynb">68-siglip2-large-384-onnx.ipynb</a></li>
+</ul>
+<p>検証の結果、<strong>SigLIP 2 は前モデルと比較しても明確に良くなっている</strong> ことが確認できました。特に画像のニュアンスを捉える能力や、多言語での検索精度において期待が持てます。これを ONNX 化して利用することで、推論速度とモデルサイズのバランスを取りながら、より高精度な検索システムを構築できる見込みです。</p>
+<h3 id="_1"><a class="toclink" href="../../2026/02/19/image-vector-%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E9%80%B2%E6%8D%97-%E9%A1%94%E8%AA%8D%E8%AD%98%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E5%AE%9F%E8%A1%8C%E3%81%9D%E3%81%97%E3%81%A6-siglip-2/#_1">今後の展望</a></h3>
+<p>今回の実験を通じて、顔認識の実用性、クライアントサイドでの推論の可能性、そして最新モデルによる性能向上が確認できました。今後はこれらの要素を統合し、より高度な画像検索システムの構築を目指していきます。</p>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2026-02-13 00:00:00+00:00">2026年2月13日</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../projects/" class="md-meta__link">Projects</a>, 
+              <a href="./" class="md-meta__link">PoC</a>, 
+              <a href="../ai/" class="md-meta__link">AI</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              このページは約1分で読めます
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="image-vector-poc-gradio"><a class="toclink" href="../../2026/02/13/image-vector-poc-gradio%E3%81%AB%E3%82%88%E3%82%8B%E3%83%87%E3%83%A2%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AE%E6%A7%8B%E7%AF%89%E3%81%A8%E5%AE%9F%E9%A8%93%E7%B5%90%E6%9E%9C/">Image Vector PoC: Gradioによるデモアプリの構築と実験結果</a></h2>
+<p><a href="../../../projects/image-vector-poc/">Image Vector PoC</a> プロジェクトの一環として、Gradioを使用したデモアプリを作成し、実際のデータを用いた検証を行っています。</p>
+<h3 id="_1"><a class="toclink" href="../../2026/02/13/image-vector-poc-gradio%E3%81%AB%E3%82%88%E3%82%8B%E3%83%87%E3%83%A2%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AE%E6%A7%8B%E7%AF%89%E3%81%A8%E5%AE%9F%E9%A8%93%E7%B5%90%E6%9E%9C/#_1">デモアプリの概要</a></h3>
+<p>今回作成したデモアプリでは、以下の主要な機能を実装しました。</p>
+<ul>
+<li><strong>テキスト検索機能</strong>: 自然言語で画像を検索</li>
+<li><strong>類似画像検索機能</strong>: アップロードした画像に似た画像を検索</li>
+<li><strong>フィルタリング機能</strong>: イベントごとの絞り込み</li>
+</ul>
+<p>モデルには、事前の実験で多言語対応において良好な結果を示した <strong>Google SigLIP</strong> を採用しています。</p>
+<h3 id="_2"><a class="toclink" href="../../2026/02/13/image-vector-poc-gradio%E3%81%AB%E3%82%88%E3%82%8B%E3%83%87%E3%83%A2%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AE%E6%A7%8B%E7%AF%89%E3%81%A8%E5%AE%9F%E9%A8%93%E7%B5%90%E6%9E%9C/#_2">検証データ</a></h3>
+<p>検証には、<strong>PyCon JP</strong> がFlickrで公開している3万枚を超える写真データを使用しました。</p>
+<h3 id="_3"><a class="toclink" href="../../2026/02/13/image-vector-poc-gradio%E3%81%AB%E3%82%88%E3%82%8B%E3%83%87%E3%83%A2%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AE%E6%A7%8B%E7%AF%89%E3%81%A8%E5%AE%9F%E9%A8%93%E7%B5%90%E6%9E%9C/#_3">実験結果</a></h3>
+<h4 id="_4"><a class="toclink" href="../../2026/02/13/image-vector-poc-gradio%E3%81%AB%E3%82%88%E3%82%8B%E3%83%87%E3%83%A2%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AE%E6%A7%8B%E7%AF%89%E3%81%A8%E5%AE%9F%E9%A8%93%E7%B5%90%E6%9E%9C/#_4">できたこと</a></h4>
+<ul>
+<li><strong>テキスト検索</strong>: 「おやつ」や「ビール」といった日本語のキーワードを入力すると、多くの関連画像が高い精度でヒットすることを確認しました。</li>
+<li><strong>類似画像検索</strong>: 画像を入力すると、構図や色合いなど「雰囲気」が似ている写真が検索結果として表示されました。</li>
+</ul>
+<p>以下が、デモアプリのスクリーンショットです。</p>
+<p><img alt="デモアプリのスクリーンショット(ステージを検索)" src="../../../assets/images/2026-02-13-image-vector-demo-1.png" />
+<img alt="デモアプリのスクリーンショット(類似画像検索)" src="../../../assets/images/2026-02-13-image-vector-demo-2.png" /></p>
+<h4 id="_5"><a class="toclink" href="../../2026/02/13/image-vector-poc-gradio%E3%81%AB%E3%82%88%E3%82%8B%E3%83%87%E3%83%A2%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AE%E6%A7%8B%E7%AF%89%E3%81%A8%E5%AE%9F%E9%A8%93%E7%B5%90%E6%9E%9C/#_5">できていないこと・課題</a></h4>
+<ul>
+<li><strong>人物検索</strong>: 特定の人の顔画像を入れても、まったくの別人が検索結果に出ることがあります。これは本システムが顔認識（Face Recognition）ではなく、画像全体のベクトル化を行っているためであり、想定される挙動ではありますが、利用時には注意が必要です。</li>
+</ul>
+<h3 id="_6"><a class="toclink" href="../../2026/02/13/image-vector-poc-gradio%E3%81%AB%E3%82%88%E3%82%8B%E3%83%87%E3%83%A2%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AE%E6%A7%8B%E7%AF%89%E3%81%A8%E5%AE%9F%E9%A8%93%E7%B5%90%E6%9E%9C/#_6">考察</a></h3>
+<p>実際に触ってみて感じた点は以下の通りです。</p>
+<ul>
+<li><strong>大量のデータからの絞り込み</strong>: さまざまなキーワードを使って検索すると、3万枚という膨大な写真の中からある程度絞り込まれた画像が瞬時に出てくるのは非常に便利だと感じました。</li>
+<li><strong>雰囲気や構図の一致</strong>: 画像から画像を検索する場合、同じような構図や、服装を含めた「雰囲気」まで似た写真が出てくることが確認できました。</li>
+<li><strong>クロップ検索の有用性</strong>: さらに、画像の一部をクロップしてその部分を指定して検索すると、同じようなカットの写真をピンポイントで取得できることがわかりました。これは素材探しなどで便利に使えそうです。</li>
+</ul>
+<p>また、過去のイベント写真を眺めていると、個人的に懐かしい写真にも予期せず出会うことがあり、技術的な検証以上の感慨深さがありました。</p>
+<h3 id="_7"><a class="toclink" href="../../2026/02/13/image-vector-poc-gradio%E3%81%AB%E3%82%88%E3%82%8B%E3%83%87%E3%83%A2%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AE%E6%A7%8B%E7%AF%89%E3%81%A8%E5%AE%9F%E9%A8%93%E7%B5%90%E6%9E%9C/#_7">データの利用に関する注記</a></h3>
+<p>本検証で使用した写真データについて、以下の通り付記します。
+- 使用した写真は <a href="https://creativecommons.org/licenses/by/4.0/deed.ja">CC-BY PyCon JP</a> のライセンス下で公開されているものです。
+- 筆者（寺田）は一般社団法人PyCon JP Associationの理事を務めておりますが、写真の取得にあたっては他の理事の許可を得た上でAPIキーを取得し、実施しました。</p>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2026-02-11 00:00:00+00:00">2026年2月11日</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../projects/" class="md-meta__link">Projects</a>, 
+              <a href="./" class="md-meta__link">PoC</a>, 
+              <a href="../ai/" class="md-meta__link">AI</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              このページは約1分で読めます
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="image-vector-poc"><a class="toclink" href="../../2026/02/11/%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88image-vector-poc%E3%82%92%E9%96%8B%E5%A7%8B%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F/">新プロジェクト「Image Vector PoC」を開始しました</a></h2>
+<p>新しいプロジェクトとして、画像のベクトル検索を検証する <a href="../../../projects/image-vector-poc/">Image Vector PoC</a> を開始しました。</p>
+<h3 id="_1"><a class="toclink" href="../../2026/02/11/%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88image-vector-poc%E3%82%92%E9%96%8B%E5%A7%8B%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F/#_1">プロジェクトの目的</a></h3>
+<p>この実験的なプロジェクトでは、昨今のマルチモーダルモデルの進化を受けて、画像のベクトル化による検索システムがどこまで実用的かを検証します。特に、自然言語（日本語）で「どのような画像か」を説明することで、意図した画像を見つけ出せるかどうかに焦点を当てています。</p>
+<h3 id="_2"><a class="toclink" href="../../2026/02/11/%E6%96%B0%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88image-vector-poc%E3%82%92%E9%96%8B%E5%A7%8B%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F/#_2">取り組みの現状</a></h3>
+<p>現在、いくつかのモデルを比較検討していますが、日本語での検索においては <strong>Google SigLIP</strong> が比較的意図に近い結果を返す傾向が見られています。</p>
+<p>まずはこの SigLIP を使用したシンプルな画像検索システムをサンプルとして構築し、実際の検索精度や使い勝手を確認していく予定です。</p>
+<p>リポジトリはこちら：
+<a href="https://github.com/cmscom/image-vector-poc">https://github.com/cmscom/image-vector-poc</a></p>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2026-02-02 00:00:00+00:00">2026年2月2日</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../projects/" class="md-meta__link">Projects</a>, 
+              <a href="./" class="md-meta__link">PoC</a>, 
+              <a href="../vector-search/" class="md-meta__link">Vector Search</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              このページは約1分で読めます
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="lsh-cascade-poc"><a class="toclink" href="../../2026/02/02/lsh-cascade-poc%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E7%B4%B9%E4%BB%8B/">LSH Cascade PoCプロジェクトの紹介</a></h2>
+<p>CMScom Labの2つ目の記事として、現在進行中の<strong>LSH Cascade PoC</strong>について紹介します。
+1月の最終週に集中的に実験を行い、良い成果が得られたため、その概要をまとめます。</p>
+
+    
+      <nav class="md-post__action">
+        <a href="../../2026/02/02/lsh-cascade-poc%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E7%B4%B9%E4%BB%8B/">
+          続きを読む
+        </a>
+      </nav>
+    
+    
+  </div>
+</article>
+      
+      
+        
+          
+
+
+
+<nav class="md-pagination">
+  
+</nav>
+        
+      
+    </div>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 <a href="https://www.cmscom.jp">CMScom</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "search.suggest"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
