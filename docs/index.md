@@ -2,6 +2,9 @@
 
 CMScomLabは、[株式会社CMSコミュニケーションズ](https://www.cmscom.jp) の技術ラボサイトです。
 
+![CMScomLab Logo](assets/images/cmscom_lab.svg)
+
+
 当ラボでは、既存のビジネス領域にとらわれず、最新のAI技術、自然言語処理（NLP）、ベクトル検索といった先端技術の実験や実装検証に取り組んでいます。
 
 ## ミッション
