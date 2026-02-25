@@ -15,6 +15,8 @@ theme:
     - navigation.indexes     # indexファイルをセクションリンクにする
     - navigation.top         # 「トップに戻る」ボタン
     - search.suggest         # 検索サジェスト
+  logo: assets/images/cmscom_lab.svg
+  favicon: assets/images/cmscom_lab.svg
   palette: 
     scheme: default          # default(白系) / slate(黒系)
     primary: indigo
