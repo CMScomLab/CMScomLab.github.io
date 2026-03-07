@@ -3,13 +3,14 @@ date: 2026-02-10
 title: 既存DBで実現するベクトル検索：理論的な「下界フィルタ」より単純な「範囲検索」を選んだ理由
 categories:
   - Technical
+tags:
   - Vector Search
   - Optimization
-tags:
-  - ITQ
   - Pivot
-  - Benchmark
   - HNSW
+  - Benchmark
+authors:
+  - terapyon
 ---
 
 前回の記事（[2月4日](../posts/2026-02-04-pivot-vector-search.md)の一部）では、複雑化したLSH Overlap手法を捨て、数学的に扱いやすい「Pivot（参照点）」ベースの手法へ転換する話を書きました。

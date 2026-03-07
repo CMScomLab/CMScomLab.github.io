@@ -4,9 +4,10 @@ authors:
   - terapyon
 categories:
   - Technical
-  - AI
 tags:
-  - Vision Language Model
+  - AI
+  - VLM
+  - Captioning
   - Qwen2.5-VL
 slug: image-vector-captioning-experiments
 title: 画像からテキスト生成（キャプション生成）の実験報告

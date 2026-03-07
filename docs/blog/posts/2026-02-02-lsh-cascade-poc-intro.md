@@ -3,13 +3,15 @@ date: 2026-02-02
 title: LSH Cascade PoCプロジェクトの紹介
 categories:
   - Projects
+tags:
   - PoC
   - Vector Search
-tags:
   - LSH
   - Zope
   - NoSQL
   - Python
+authors:
+  - terapyon
 ---
 
 CMScom Labの2つ目の記事として、現在進行中の**LSH Cascade PoC**について紹介します。

@@ -2,8 +2,13 @@
 date: 2026-02-11
 categories:
   - Projects
+tags:
   - PoC
   - AI
+  - Image Recognition
+  - Vector Search
+authors:
+  - terapyon
 ---
 
 # 新プロジェクト「Image Vector PoC」を開始しました

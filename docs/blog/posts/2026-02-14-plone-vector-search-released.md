@@ -1,10 +1,13 @@
 ---
 date: 2026-02-14
 categories:
+  - Projects
+tags:
   - Plone
   - Vector Search
-  - AI
   - Release
+authors:
+  - terapyon
 ---
 
 # Plone向けベクトル検索製品 collective.vectorsearch を完成させました

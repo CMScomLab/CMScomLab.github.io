@@ -3,14 +3,14 @@ date: 2026-02-04
 title: 軽量ベクトル検索の最適化：LSHのビット列を「三角不等式」へ転換してスリム化を実現
 categories:
   - Technical
+tags:
   - Vector Search
   - Optimization
-tags:
   - LSH
   - Pivot
-  - Vantage Point
   - DuckDB
-  - SimHash
+authors:
+  - terapyon
 ---
 
 エンジニアリングにおいて、複雑なヒューリスティックを積み重ねた結果、管理しきれないほどの複雑さを抱え込んでしまうことがあります。

@@ -2,8 +2,13 @@
 date: 2026-02-19
 categories:
   - Projects
+tags:
   - PoC
   - AI
+  - Face Recognition
+  - SigLIP
+authors:
+  - terapyon
 ---
 
 # Image Vector プロジェクト進捗: 顔認識、ブラウザ実行、そして SigLIP 2
