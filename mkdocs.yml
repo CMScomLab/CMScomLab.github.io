@@ -57,5 +57,6 @@ nav:
       - projects/index.md
       - 'net-vis': projects/net-vis.md
       - 'LSH Cascade PoC': projects/lsh-cascade-poc.md
+      - 'Image Vector PoC': projects/image-vector-poc.md
       - 'Graph RAG PoC': projects/graph-rag-poc.md
   - Blog: blog/index.md
