@@ -4,6 +4,8 @@ categories:
   - Projects
   - PoC
   - AI
+authors:
+  - terapyon
 ---
 
 # Image Vector PoC: Gradioによるデモアプリの構築と実験結果

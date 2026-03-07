@@ -5,6 +5,8 @@ categories:
   - Vector Search
   - AI
   - Release
+authors:
+  - terapyon
 ---
 
 # Plone向けベクトル検索製品 collective.vectorsearch を完成させました

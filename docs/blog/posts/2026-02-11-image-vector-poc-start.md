@@ -4,6 +4,8 @@ categories:
   - Projects
   - PoC
   - AI
+authors:
+  - terapyon
 ---
 
 # 新プロジェクト「Image Vector PoC」を開始しました

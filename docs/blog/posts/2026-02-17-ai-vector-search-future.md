@@ -13,6 +13,8 @@ tags:
     - Vector DB
     - ONNX
     - Transformers.js
+authors:
+  - terapyon
 ---
 
 # AIが変える「検索」の未来：ベクトル検索の世界へようこそ

@@ -11,6 +11,8 @@ tags:
   - Vantage Point
   - DuckDB
   - SimHash
+authors:
+  - terapyon
 ---
 
 エンジニアリングにおいて、複雑なヒューリスティックを積み重ねた結果、管理しきれないほどの複雑さを抱え込んでしまうことがあります。

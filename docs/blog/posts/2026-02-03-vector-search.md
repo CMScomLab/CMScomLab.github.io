@@ -10,6 +10,8 @@ tags:
   - DuckDB
   - E5
   - ANN
+authors:
+  - terapyon
 ---
 
 [前回の記事](../posts/2026-02-02-lsh-cascade-poc-intro.md)では、少しマニアックな「LSH Cascade」という独自のアプローチについて書きましたが、今回は基本に立ち返って**「ベクトル検索（Vector Search）」**そのものの一般的な仕組みや、私が普段利用している技術スタックについてまとめたいと思います。

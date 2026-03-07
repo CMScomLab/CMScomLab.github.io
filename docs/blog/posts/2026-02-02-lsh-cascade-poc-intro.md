@@ -10,6 +10,8 @@ tags:
   - Zope
   - NoSQL
   - Python
+authors:
+  - terapyon
 ---
 
 CMScom Labの2つ目の記事として、現在進行中の**LSH Cascade PoC**について紹介します。
