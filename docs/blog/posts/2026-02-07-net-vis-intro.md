@@ -1,9 +1,12 @@
 ---
 date: 2026-02-07
 categories:
-  - Project
+  - Projects
+tags:
   - Visualization
   - Python
+  - NetworkX
+  - Jupyter
 authors:
   - terapyon
 ---

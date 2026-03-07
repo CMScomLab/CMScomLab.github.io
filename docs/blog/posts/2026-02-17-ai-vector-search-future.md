@@ -2,17 +2,15 @@
 date: 2026-02-17
 title: AIが変える「検索」の未来：ベクトル検索の世界へようこそ
 categories:
-    - Technical
-    - Vector Search
+  - Technical
 tags:
-    - Embedding
-    - ANN
-    - HNSW
-    - SigLIP
-    - CLIP
-    - Vector DB
-    - ONNX
-    - Transformers.js
+  - Vector Search
+  - AI
+  - Embedding
+  - HNSW
+  - Multimodal
+  - ONNX
+  - Transformers.js
 authors:
   - terapyon
 ---

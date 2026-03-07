@@ -2,8 +2,12 @@
 date: 2026-02-13
 categories:
   - Projects
+tags:
   - PoC
   - AI
+  - Gradio
+  - Image Recognition
+  - Vector Search
 authors:
   - terapyon
 ---

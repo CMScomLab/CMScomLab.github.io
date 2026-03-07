@@ -3,9 +3,9 @@ date: 2026-02-02
 title: LSH Cascade PoCプロジェクトの紹介
 categories:
   - Projects
+tags:
   - PoC
   - Vector Search
-tags:
   - LSH
   - Zope
   - NoSQL

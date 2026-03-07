@@ -2,8 +2,11 @@
 date: 2026-02-19
 categories:
   - Projects
+tags:
   - PoC
   - AI
+  - Face Recognition
+  - SigLIP
 authors:
   - terapyon
 ---

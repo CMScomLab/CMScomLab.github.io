@@ -2,8 +2,11 @@
 date: 2026-02-11
 categories:
   - Projects
+tags:
   - PoC
   - AI
+  - Image Recognition
+  - Vector Search
 authors:
   - terapyon
 ---

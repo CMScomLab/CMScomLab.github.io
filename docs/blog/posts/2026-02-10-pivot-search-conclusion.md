@@ -3,13 +3,12 @@ date: 2026-02-10
 title: 既存DBで実現するベクトル検索：理論的な「下界フィルタ」より単純な「範囲検索」を選んだ理由
 categories:
   - Technical
+tags:
   - Vector Search
   - Optimization
-tags:
-  - ITQ
   - Pivot
-  - Benchmark
   - HNSW
+  - Benchmark
 authors:
   - terapyon
 ---

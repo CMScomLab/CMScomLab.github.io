@@ -3,12 +3,11 @@ date: 2026-02-03
 title: ベクトル検索の基本と実践
 categories:
   - Technical
-  - Vector Search
 tags:
+  - Vector Search
   - Embedding
   - Qdrant
   - DuckDB
-  - E5
   - ANN
 authors:
   - terapyon
