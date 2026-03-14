@@ -22,3 +22,4 @@
 
 * [Image Vector PoC を開始しました（2026-02-11）](../blog/posts/2026-02-11-image-vector-poc-start.md)
 * [Image Vector PoC: Gradioによるデモアプリの構築と実験結果（2026-02-13）](../blog/posts/2026-02-13-image-vector-demo.md)
+* [Image Vector PoC: Voronoi分割によるFirestoreのベクトル検索最適化（2026-03-14）](../blog/posts/2026-03-14-firestore-voronoi-partitioning.md)
