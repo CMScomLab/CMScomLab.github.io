@@ -9,6 +9,7 @@ tags:
   - Vector Search
 authors:
   - terapyon
+slug: image-vector-poc-start
 ---
 
 # 新プロジェクト「Image Vector PoC」を開始しました

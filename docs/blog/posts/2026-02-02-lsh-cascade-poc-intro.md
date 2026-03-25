@@ -12,6 +12,7 @@ tags:
   - Python
 authors:
   - terapyon
+slug: lsh-cascade-poc-intro
 ---
 
 CMScom Labの2つ目の記事として、現在進行中の**LSH Cascade PoC**について紹介します。

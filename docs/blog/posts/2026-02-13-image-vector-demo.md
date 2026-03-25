@@ -10,6 +10,7 @@ tags:
   - Vector Search
 authors:
   - terapyon
+slug: image-vector-demo
 ---
 
 # Image Vector PoC: Gradioによるデモアプリの構築と実験結果

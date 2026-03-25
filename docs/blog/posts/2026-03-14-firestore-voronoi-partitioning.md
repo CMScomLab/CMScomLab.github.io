@@ -6,6 +6,7 @@ categories:
   - Vector Search
 authors:
   - terapyon
+slug: firestore-voronoi-partitioning
 ---
 
 # Image Vector PoC: Voronoi分割によるFirestoreのベクトル検索最適化

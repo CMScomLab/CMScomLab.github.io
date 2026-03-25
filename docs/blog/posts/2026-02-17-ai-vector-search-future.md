@@ -13,6 +13,7 @@ tags:
   - Transformers.js
 authors:
   - terapyon
+slug: ai-vector-search-future
 ---
 
 # AIが変える「検索」の未来：ベクトル検索の世界へようこそ

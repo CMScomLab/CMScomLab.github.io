@@ -9,6 +9,7 @@ tags:
   - Jupyter
 authors:
   - terapyon
+slug: net-vis-intro
 ---
 
 # Project紹介: net-vis - JupyterLabで手軽にネットワーク可視化をするために

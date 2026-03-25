@@ -9,6 +9,7 @@ tags:
   - SigLIP
 authors:
   - terapyon
+slug: image-vector-update
 ---
 
 # Image Vector プロジェクト進捗: 顔認識、ブラウザ実行、そして SigLIP 2
