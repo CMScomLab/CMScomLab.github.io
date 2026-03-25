@@ -8,6 +8,7 @@ tags:
   - Release
 authors:
   - terapyon
+slug: plone-vector-search-released
 ---
 
 # Plone向けベクトル検索製品 collective.vectorsearch を完成させました

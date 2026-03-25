@@ -6,6 +6,7 @@ categories:
   - Vector Search
 authors:
   - terapyon
+slug: firestore-voronoi-partitioning
 ---
 
 # Image Vector PoC: Voronoi分割によるFirestoreのベクトル検索最適化
@@ -19,7 +20,7 @@ Firestore を利用したベクトル検索において、Voronoi（ボロノイ
 
 このプロジェクトでは、顔認識モデル（512-D ArcFace embedding）を用いた画像検索システムを構築しています。バックエンドとして Google Firestore のベクトル検索機能を利用していますが、いくつかの課題に直面していました。
 
-Firestore のベクトル検索は **Exact KNN (厳密なK近傍法)** を採用しており、ANN（近似最近傍探索）ではありません。これは精度が高い反面、フィルタリングを行わない場合、コレクション内の全ドキュメントをスキャンする必要があります。
+Firestore のベクトル検索は **kNN ベースの検索** であり、フィルタリングを行わない場合はコレクション内の広い範囲をスキャンする必要があります。
 
 Firestore の課金体系において、ベクトル検索のコストはスキャンしたドキュメント数に応じた Read コスト（1ベクトルにつき1/100Read相当）が発生します。
 今回のデータセットは約 70,000 件の顔ベクトルを含んでおり、単純な検索を行うと 1回あたり 700 read が発生することになります。

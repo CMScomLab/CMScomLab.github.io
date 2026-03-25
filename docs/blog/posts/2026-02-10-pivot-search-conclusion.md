@@ -11,6 +11,7 @@ tags:
   - Benchmark
 authors:
   - terapyon
+slug: pivot-search-conclusion
 ---
 
 前回の記事（[2月4日](../posts/2026-02-04-pivot-vector-search.md)の一部）では、複雑化したLSH Overlap手法を捨て、数学的に扱いやすい「Pivot（参照点）」ベースの手法へ転換する話を書きました。

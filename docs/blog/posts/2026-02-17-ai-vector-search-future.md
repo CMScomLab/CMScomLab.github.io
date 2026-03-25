@@ -13,6 +13,7 @@ tags:
   - Transformers.js
 authors:
   - terapyon
+slug: ai-vector-search-future
 ---
 
 # AIが変える「検索」の未来：ベクトル検索の世界へようこそ
@@ -82,7 +83,9 @@ AIが生成するベクトルは、768次元や512次元といった人間には
 
 * **専用DB**: **Qdrant**, Pinecone など、ベクトル検索のために設計された高速なDB。
 * **汎用DBのアドオン**: **PostgreSQL** (pgvector) や **Elasticsearch** など、既存の強力なDBにベクトル検索機能を追加したもの。
-* **ローカル/軽量DB**: **DuckDB** (HNSWアドオンあり) や **Firestore** (ScaNN対応) など、手軽に利用できる環境。
+* **ローカル/軽量DB**: **DuckDB** (HNSWアドオンあり) や **Firestore** のように、用途に応じて軽量に扱える環境。
+
+※ 2026-03-25訂正: 初版では `Firestore (ScaNN対応)` と記載していましたが、ScaNNには対応せずkNNにのみ対応しています。
 
 ### 【挑戦】レガシー環境（Zope）での実装事例
 
