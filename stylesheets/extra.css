@@ -1,0 +1,620 @@
+/* グローバルナビゲーション（上部）のカスタマイズ */
+.md-tabs__link {
+  font-size: 0.85rem;      /* 文字サイズを少し大きく */
+  margin: 0 0.2rem;       /* ボタン同士の間隔 */
+  padding: 0.4rem 0.8rem; /* 内側の余白を増やしてボタン感を出す */
+  border-radius: 4px;     /* 角丸 */
+  transition: background-color 0.25s;
+  opacity: 1; /* 不透明度を上げてくっきりさせる */
+}
+
+/* ホバー時のスタイル */
+.md-tabs__link:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  opacity: 1;
+}
+
+/* アクティブ（現在地）のスタイル */
+.md-tabs__item--active .md-tabs__link {
+  background-color: rgba(255, 255, 255, 0.25);
+  font-weight: 700;
+  opacity: 1;
+}
+
+/* サイドナビゲーション（左側）のカスタマイズ */
+.md-nav__link {
+  padding: 6px 12px; /* クリックエリアを広げる */
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+/* サイドナビのホバー時 */
+.md-nav__link:hover {
+  background-color: rgba(0, 0, 0, 0.05); /* 薄いグレーの背景 */
+  color: var(--md-primary-fg-color);
+}
+
+/* サイドナビのアクティブ時 */
+.md-nav__item--active > .md-nav__link {
+  font-weight: bold;
+  background-color: rgba(var(--md-primary-fg-color--rgb), 0.1); /* テーマカラーの薄い背景 */
+  color: var(--md-primary-fg-color);
+}
+
+/* サイドナビの「Projects」などの親項目のスタイル調整 */
+.md-nav__item .md-nav__link--active {
+    font-weight: bold;
+}
+
+/* ロゴのスタイル調整 */
+.md-header__button.md-logo img {
+  background-color: white; /* 背景色を白に */
+  padding: 4px;            /* 余白を追加 */
+  border-radius: 4px;      /* 角丸に */
+  box-shadow: 0 0 4px rgba(0,0,0,0.2); /* 軽く影をつける */
+}
+
+
+
+/* -------- Header Customization (Single Row Header) -------- */
+
+/* 1. Hide Site Title Text but keep Logo */
+/* タイトル部分のテキストを非表示にする（ロゴのみ表示） */
+.md-header__title .md-header__topic {
+  display: none;
+}
+/* ロゴ画像自体のマージン調整 */
+.md-header__button.md-logo {
+  margin-right: 1.5rem; /* タブとの間隔確保 */
+}
+
+
+/* 2. Position Tabs within Header (PC View Only) */
+@media screen and (min-width: 76.25em) {
+  
+  /* タブバーを通常位置（ヘッダー下）から移動させる */
+  .md-tabs {
+    /* 絶対配置でヘッダー領域に重ねる */
+    position: absolute;
+    top: 0;
+    /* ロゴ幅(約40px + margin)の分だけ左を空ける */
+    /* 実際には .md-header__title が幅を持っているので、
+       その隣に来るように調整が必要だが、absoluteなので数値指定が必要 */
+    left: 4.5rem; 
+    
+    /* 高さ調整 */
+    height: 2.4rem; /* ヘッダーの高さ(48px)に合わせる */
+    background-color: transparent;
+    
+    /* 重なり順序調整 */
+    z-index: 10;
+    
+    /* 幅調整（検索ボックス等と被らないように） */
+    width: auto;
+    max-width: 60%;
+    
+    /* 影を消す */
+    box-shadow: none;
+  }
+  
+  /* タブリストの配置調整 */
+  .md-tabs__list {
+    margin: 0;
+    height: 100%;
+    /* 垂直方向中央配置 */
+    display: flex;
+    align-items: center;
+  }
+  
+  /* タブリンクの余白調整 */
+  .md-tabs__link {
+    margin-top: 0; /* デフォルトの上マージン除去 */
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem; /* サイズ調整 */
+  }
+
+  /* コンテンツ領域の上余白調整 */
+  /* タブバーの高さ分が不要になるので詰める */
+  .md-main__inner {
+    margin-top: 0 !important; 
+    padding-top: 0.5rem;
+  }
+  
+  /* ヘッダーの影を少し抑える（任意） */
+  .md-header {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+}
+
+/* -------- Further Adjustments (Logo Size, Tab Position, Hide Repo) -------- */
+
+/* 3. Hide GitHub Repository Link */
+/* 右上のリポジトリリンク（GitHubアイコン）を非表示 */
+.md-header__source {
+  display: none;
+}
+
+/* 4. Increase Logo Size */
+/* ロゴ画像のサイズを大きくする */
+.md-header__button.md-logo img {
+  height: 3.6rem; /* 2.4rem * 1.5 = 3.6rem */
+  width: auto;     /* アスペクト比維持 */
+  /* ロゴが大きくなるので、少し位置調整が必要かもしれない */
+  position: relative;
+  top: 0.4rem; /* 少し下げる、または親要素からはみ出させる */
+}
+/* ロゴボタン自体の枠も調整（必要であれば） */
+.md-header__button.md-logo {
+  padding: 0; /* 余白除去して画像サイズを確保 */
+  margin-top: 0.2rem;
+  margin-right: 2rem; /* タブとの距離を少し広げる */
+}
+
+
+/* 5. Align Tabs to Bottom */
+@media screen and (min-width: 76.25em) {
+  /* タブリストを下揃えにする */
+  .md-tabs__list {
+    align-items: flex-end; /* 下揃え */
+    padding-bottom: 4px;   /* 下端からの微調整 */
+  }
+  
+  /* タブ自体の配置位置調整（左位置はロゴサイズ変更に合わせて調整） */
+  .md-tabs {
+    left: 6rem; /* ロゴが大きくなった分、開始位置を右へずらす */
+    height: 100%; /* ヘッダーの高さ一杯に使う */
+    top: 0;
+  }
+  
+  /* 念の為、ヘッダー自体の高さを少し高くする必要があるか？ */
+  /* デフォルトは height: 2.4rem (48px) だが、ロゴを大きくするなら
+     ヘッダーからはみ出すか、ヘッダーを高くするか。
+     今回は「ヘッダー内に収める」前提で、z-index等ではみ出し許可するか確認 */
+     
+  /* ロゴが大きくてヘッダーからはみ出る場合、z-indexで前面に出るように */
+  .md-header__button.md-logo {
+    z-index: 30;
+    overflow: visible; /* はみ出し許可 */
+  }
+}
+
+/* -------- Adjust Header Height for Larger Logo -------- */
+
+/* PC表示時のみヘッダーの高さを拡張してロゴを収める */
+@media screen and (min-width: 76.25em) {
+  
+  /* ヘッダー全体（固定配置される親要素） */
+  .md-header {
+    height: 4.5rem; /* ロゴ(3.6rem) + 余白分で高さ確保 */
+  }
+
+  /* ヘッダー内部のコンテナ */
+  .md-header__inner {
+    height: 4.5rem; /* 親と同じ高さに */
+    align-items: center; /* 垂直中央揃え */
+  }
+  
+  /* ロゴの調整（再調整） */
+  .md-header__button.md-logo img {
+    height: 3.8rem; /* 少し余裕を持たせるか、枠一杯にするか */
+    width: auto;
+    position: static; /* 前回のrelative/top調整をリセット */
+    margin: 0;
+    
+    /* 角丸の設定 */
+    border-radius: 8px; /* 丸みを少し強める */
+    
+    /* 以前の白い背景＆影の設定が生きているか確認しつつ、必要なら再設定 */
+    /* 背景色などは上の共通設定で効いているはず */
+  }
+  
+  /* ロゴボタン自体の位置 */
+  .md-header__button.md-logo {
+    margin-top: 0;
+    margin-right: 2rem;
+    padding: 0;
+    height: auto; /* ボタン高さを画像に合わせる */
+  }
+  
+  /* タブの配置調整（ヘッダーが高くなったので） */
+  .md-tabs {
+    height: 4.5rem; /* ヘッダーと同じ高さ */
+    /* top, left等は前回の設定を継承 */
+    align-items: flex-end; /* 下揃え */
+    display: flex;
+  }
+  
+  /* タブリスト */
+  .md-tabs__list {
+    height: 100%;
+    align-items: flex-end; /* 下揃えを徹底 */
+    padding-bottom: 0.8rem; /* 下の余白調整（ロゴのベースラインに合わせる感じに） */
+  }
+  
+  /* コンテンツ領域の余白調整 */
+  /* ヘッダーが固定(sticky/fixed)の場合、次のコンテンツが隠れないようにpaddingが必要だが
+     Material for MkDocsはJSで計算している。
+     .md-main__inner { margin-top: ... } で調整が必要になるかも。
+     ただし今は .md-tabs をabsoluteにしているので、ヘッダー高さ分だけ確保すれば良いはず。 */
+     
+  body {
+    /* ヘッダー高さが変わったことを変数で伝える（効く場合がある） */
+    --md-header-height: 4.5rem; 
+  }
+  
+  /* ロゴの角丸を確実に */
+  .md-header__button.md-logo img {
+    border-radius: 6px;
+  }
+
+}
+
+/* -------- Center Tabs Fix -------- */
+
+@media screen and (min-width: 76.25em) {
+  
+  /* タブバーの絶対位置指定を調整して中央寄せにする */
+  .md-tabs {
+    /* 左位置の固定指定を解除し、flexbox等で制御しやすくするか、
+       あるいは全幅使って中身をcenterにする */
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%; /* 幅制限解除 */
+    
+    /* フレックスボックスで配置制御 */
+    display: flex;
+    justify-content: center; /* コンテナ内で中央寄せ */
+    pointer-events: none; /* 全体をクリックスルーにする（タブリンクのみ有効化） */
+  }
+  
+  /* タブリスト設定 */
+  .md-tabs__list {
+    /* フレックス内での配置 */
+    margin: 0 auto; /* 中央寄せ */
+    pointer-events: auto; /* タブリンクはクリック可能に戻す */
+    
+    /* 他の要素（ロゴや検索）と被らないように少しパディングが必要かも */
+    padding-left: 8rem; /* 左側のロゴ分を避ける */
+    padding-right: 8rem; /* 右側の検索などを避ける */
+  }
+
+  /* ロゴは左端に固定（既存設定の確認・補強） */
+  .md-header__button.md-logo {
+    position: absolute; /* 左端に絶対配置 */
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%); /* 垂直中央 */
+    margin: 0;
+    z-index: 50; /* タブより上に */
+  }
+  
+  /* 検索ボックスなども右端に維持されるはず */
+  
+}
+
+/* ロゴの垂直位置を再調整（タブの下端揃えに対して中央に見えるように） */
+@media screen and (min-width: 76.25em) {
+  .md-header__button.md-logo {
+    top: 50%;
+    transform: translateY(-50%);
+    /* ロゴが大きくてヘッダーからはみ出る場合、paddingが必要かも */
+  }
+}
+
+/* ロゴの垂直位置を再調整（タブの下端揃えに対して中央に見えるように） */
+@media screen and (min-width: 76.25em) {
+  .md-header__button.md-logo {
+    top: 50%;
+    transform: translateY(-50%);
+    /* ロゴが大きくてヘッダーからはみ出る場合、paddingが必要かも */
+  }
+}
+
+/* ロゴ位置の微調整（左端から少し離す） */
+@media screen and (min-width: 76.25em) {
+  .md-header__button.md-logo {
+    left: 3.5rem; /* 1rem -> 3.5rem に変更して右へ移動 */
+  }
+  
+  /* ロゴが右に動いた分、タブとの重なりを防ぐ安全マージンも調整 */
+  .md-tabs__list {
+    padding-left: 10rem; /* 8rem -> 10rem */
+  }
+}
+
+/* タブ位置の微調整（少し左へ戻す） */
+@media screen and (min-width: 76.25em) {
+  .md-tabs__list {
+    /* 左パディングを減らすか、右パディングを増やしてバランスを取る */
+    /* 現在: padding-left: 10rem, padding-right: 8rem -> 中身が右寄り */
+    /* 修正: 両方を揃える、あるいは左を少し減らす */
+    padding-left: 8rem !important;  /* 10rem -> 8rem */
+    padding-right: 8rem !important; /* そのまま */
+    
+    /* これで左右均等になり、先ほどより左へ2rem動くはず */
+  }
+}
+
+/* -------- Mobile Adjustments (Reset Logo Size) -------- */
+
+/* 76.25em未満（タブレット・スマホサイズ）での調整 */
+@media screen and (max-width: 76.24em) {
+  
+  /* ロゴサイズを標準的なヘッダー高さ(48px)に収まるようにリセット */
+  .md-header__button.md-logo img {
+    height: 2rem !important; /* height: 2.4remに対して少し余裕を持たせる */
+    width: auto !important;
+    
+    /* PC用の位置調整を解除 */
+    position: static !important;
+    top: auto !important;
+    margin: 0 !important;
+    
+    /* モバイルでも角丸は維持 */
+    border-radius: 4px !important;
+  }
+  
+  /* ロゴボタン自体の余白調整 */
+  .md-header__button.md-logo {
+    margin: 0 !important;
+    padding: 4px !important; /* タップしやすいように少しパディング戻す */
+    margin-right: 0.5rem !important;
+  }
+  
+  /* タイトル文字は既に非表示(.md-header__title .md-header__topic { display: none; })なので、
+     ロゴだけが表示される状態になる。 */
+     
+  /* ヘッダー自体の高さは標準(2.4rem)に戻るはずだが念の為 */
+  .md-header {
+    height: auto;
+  }
+  .md-header__inner {
+    height: 2.4rem; /* 標準高さ */
+  }
+
+  /* GitHubリンクなどはPC用で消しているが、モバイルでも消したままでよいか？
+     ユーザーの要望は「右側のGitHubへのリンクを削除して欲しい」だったので、全デバイス共通で消したままでOK */
+}
+
+/* -------- Mobile Adjustments (Fix Logo Visibility) -------- */
+
+@media screen and (max-width: 76.24em) {
+  
+  /* 念の為、ロゴを表示するように強制（display: block/flex） */
+  .md-header__button.md-logo {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    
+    /* モバイル用にサイズ調整（ヘッダー高さに合わせる） */
+    height: 2rem !important;
+    width: auto !important;
+    padding: 0 !important;
+    margin: 0 0.5rem 0 0 !important;
+  }
+  
+  /* 画像自体もしっかり表示 */
+  .md-header__button.md-logo img {
+    height: 100% !important;
+    width: auto !important;
+    display: block !important;
+    
+    /* PC用の絶対配置などをリセット */
+    position: static !important;
+    transform: none !important;
+    top: auto !important;
+    left: auto !important;
+  }
+
+  /* ロゴエリア（md-header__title）が隠れていないか確認 */
+  .md-header__title {
+    display: flex !important; /* フレックスでロゴを表示させる */
+    align-items: center;
+    /* margin-left: 0 !important;  <- ハンバーガーメニューとの兼ね合いで調整が必要かも */
+  }
+
+  /* テキスト(CMScomLab)は隠したままにする */
+  .md-header__topic {
+    display: none !important;
+  }
+}
+
+/* -------- Mobile Adjustments (Fix Logo Visibility) -------- */
+
+@media screen and (max-width: 76.24em) {
+  
+  /* 念の為、ロゴを表示するように強制（display: block/flex） */
+  .md-header__button.md-logo {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    
+    /* モバイル用にサイズ調整（ヘッダー高さに合わせる） */
+    height: 2rem !important;
+    width: auto !important;
+    padding: 0 !important;
+    margin: 0 0.5rem 0 0 !important;
+  }
+  
+  /* 画像自体もしっかり表示 */
+  .md-header__button.md-logo img {
+    height: 100% !important;
+    width: auto !important;
+    display: block !important;
+    
+    /* PC用の絶対配置などをリセット */
+    position: static !important;
+    transform: none !important;
+    top: auto !important;
+    left: auto !important;
+  }
+
+  /* ロゴエリア（md-header__title）が隠れていないか確認 */
+  .md-header__title {
+    display: flex !important; /* フレックスでロゴを表示させる */
+    align-items: center;
+    /* margin-left: 0 !important;  <- ハンバーガーメニューとの兼ね合いで調整が必要かも */
+  }
+
+  /* テキスト(CMScomLab)は隠したままにする */
+  .md-header__topic {
+    display: none !important;
+  }
+}
+
+/* -------- Mobile Adjustments (Swap Logo and Menu) -------- */
+
+@media screen and (max-width: 76.24em) {
+  
+  /* ヘッダー内の並び順を制御するためにFlexboxのorderを使用 */
+  .md-header__inner {
+    display: flex;
+    /* 必要に応じて justify-content などを調整 */
+  }
+
+  /* ハンバーガーメニュー (label[for="__drawer"]) */
+  /* 通常は最初にあるので order: 1 にして後ろに回すか、あるいはロゴを前に出す */
+  
+  /* ロゴ (.md-header__button.md-logo) を左端(最初)に */
+  .md-header__button.md-logo {
+    order: -1 !important; /* 最優先で左 */
+    margin-right: 0.5rem !important;
+    margin-left: 0 !important;
+  }
+  
+  /* ハンバーガーメニューボタン */
+  /* 具体的なクラスがない場合が多いので、属性セレクタを使うか、
+     .md-header__button.md-icon--menu などを探す */
+  label[for="__drawer"] {
+    order: 1 !important; /* ロゴより後ろ（右側）に移動させたい場合 */
+    /* あるいはロゴの次 */
+  }
+
+  /* もし「ロゴを左端、メニューを右端」にしたい場合 */
+  /* タイトルエリア (.md-header__title) が間にあるはず */
+  
+  .md-header__title {
+    order: 2;
+    flex-grow: 1; /* 余白を埋める */
+  }
+  
+  /* もし検索ボタンなどが右端にある場合、それらとの兼ね合いも調整が必要 */
+}
+
+
+/* -------- Mobile Adjustments (Correct Order) -------- */
+/* 要望: [ハンバーガーメニュー] [ロゴ] ... [検索] */
+
+@media screen and (max-width: 76.24em) {
+  
+  .md-header__inner {
+    display: flex;
+    align-items: center;
+  }
+
+  /* 1. ハンバーガーメニューを左端へ */
+  label[for="__drawer"] {
+    order: 1 !important;
+    margin-left: 0 !important;
+    margin-right: 1rem !important; /* ロゴとの間隔 */
+  }
+
+  /* 2. ロゴをその隣へ */
+  .md-header__button.md-logo {
+    order: 2 !important;
+    margin: 0 !important;
+    /* ロゴより右側を余白にする */
+    margin-right: auto !important; 
+    
+    /* 表示強制とサイズ調整（前回からの引き継ぎ） */
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: 2rem !important;
+    width: auto !important;
+    padding: 0 !important;
+    position: static !important;
+    transform: none !important;
+  }
+  
+  /* ロゴ画像自体の調整 */
+  .md-header__button.md-logo img {
+    height: 100% !important;
+    width: auto !important; 
+    display: block !important;
+    border-radius: 4px !important;
+  }
+
+  /* 3. 検索ボックスを右端へ */
+  .md-search {
+    order: 3 !important;
+    margin-left: 0 !important; /* ロゴのmagin-right: autoで押される */
+  }
+  
+  /* タイトルテキストやコンテナが邪魔なら消す */
+  .md-header__title {
+    display: none !important; 
+    /* ロゴが .md-header__button.md-logo として独立している前提 */
+  }
+}
+
+/* -------- Fix Drawer (Hamburger Menu) Content -------- */
+
+/* ドロワー（ハンバーガーメニュー内）のスタイル修正 */
+/* 基本的にドロワー内のロゴやタイトルに影響を与えないようにするが、
+   もし崩れている場合は以下のスタイルで整える */
+
+.md-nav__title {
+  /* ドロワー内のタイトルバーの調整 */
+  /* 必要に応じて色や配置を修正 */
+}
+
+/* ドロワー内のロゴ（もし表示されている場合） */
+.md-nav__button.md-logo img {
+  /* ヘッダーの設定が影響しないようにリセット */
+  width: auto !important;
+  height: 2rem !important; /* 適度な大きさ */
+  border-radius: 4px;
+}
+
+/* ユーザーの要望：「ハンバーガーメニューを開いた時にロゴはなくてもいい」 */
+/* ドロワー内のロゴを非表示にする設定 */
+.md-nav__title .md-nav__button.md-logo {
+  display: none !important;
+}
+
+/* ドロワー内のサイトタイトル文字を表示する場合 */
+.md-nav__title {
+  color: inherit; /* デフォルトの色に戻す */
+  /* もし隠れてしまっているなら display: block 等 */
+}
+
+/* 万が一、ヘッダーの変更がドロワーに影響している場合のリセット */
+.md-drawer .md-nav {
+  margin-top: 0;
+}
+
+/* 追加のドロワー修正（より確実に） */
+.md-nav__title {
+  display: block; /* タイトルバーを表示 */
+  padding: 0 1rem;
+  line-height: 2.4rem; /* 標準高さ */
+}
+
+/* ドロワー内のタイトルテキスト(site_name)を表示 */
+.md-nav__title .md-nav__button.md-logo + .md-nav__title__text,
+.md-nav__title__text {
+  display: inline-block !important; /* 強制表示 */
+  font-weight: bold;
+}
+
+/* -------- Fix Drawer Title Position --------- */
+
+/* ドロワー内のタイトルバー（青帯）を非表示にする（ユーザー要望により削除可とのことなので、まずは非表示） */
+/* もし表示したい場合は、orderを制御するか、positionを確認する必要があります */
+
+.md-nav__title {
+  display: none !important;
+}
+
