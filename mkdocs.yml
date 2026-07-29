@@ -56,8 +56,9 @@ nav:
   - Projects: 
       - projects/index.md
       - 'net-vis': projects/net-vis.md
-      - 'LSH Cascade PoC': projects/lsh-cascade-poc.md
       - 'Image Vector PoC': projects/image-vector-poc.md
       - 'SAENM': projects/saenm.md
+      - 'ベクトル検索 ANN': projects/vector-search-ann.md
+      - 'LSH Cascade PoC (Past)': projects/lsh-cascade-poc.md
       - 'Graph RAG PoC (Past)': projects/graph-rag-poc.md
   - Blog: blog/index.md
