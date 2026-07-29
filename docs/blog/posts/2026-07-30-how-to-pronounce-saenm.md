@@ -23,7 +23,7 @@ title: SAENMは「セーンモデル」と読みます
 
 ## なぜ「セーンモデル」なのか
 
-SAENMは、**Sequential Append-Only Experiment Notebook Model**の略です。
+SAENMは、 **Sequential Append-Only Experiment Notebook Model** の略です。
 
 読み方を考えるにあたって、SAEの部分を「セー」と読み、Experimentを表すEは独立した音としては読まないことにしました。続くNMはNotebook Modelなので、全体をつなげて「セーンモデル」としています。
 
