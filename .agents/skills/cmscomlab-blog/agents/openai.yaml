@@ -1,0 +1,4 @@
+interface:
+  display_name: "CMScomLab Blog"
+  short_description: "CMScomLabの記事を既存の形式に合わせて作成・更新します"
+  default_prompt: "Use $cmscomlab-blog to create or update a CMScomLab blog post."
