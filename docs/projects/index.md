@@ -16,6 +16,9 @@ JupyterLab向けのインタラクティブなネットワーク可視化ライ�
 ### [ベクトル検索 ANN](vector-search-ann.md)
 LSH Cascade PoCを引き継ぎ、IVF系の探索、Voronoi分割、量子化、ベクトルの幾何学的な特徴を大規模なデータで検証する研究プロジェクト。
 
+### [VC/VP Employee Badge](vc-vp-employee-badge.md)
+VC/VPの考え方を参考に、本人承認、項目単位の情報開示、短命な提示、失効、監査を独自方式で実現する社員証プロジェクト。
+
 ---
 
 ## Past Projects

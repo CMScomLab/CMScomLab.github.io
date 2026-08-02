@@ -59,6 +59,7 @@ nav:
       - 'Image Vector PoC': projects/image-vector-poc.md
       - 'SAENM': projects/saenm.md
       - 'ベクトル検索 ANN': projects/vector-search-ann.md
+      - 'VC/VP Employee Badge': projects/vc-vp-employee-badge.md
       - 'LSH Cascade PoC (Past)': projects/lsh-cascade-poc.md
       - 'Graph RAG PoC (Past)': projects/graph-rag-poc.md
   - Blog: blog/index.md
