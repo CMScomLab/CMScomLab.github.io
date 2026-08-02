@@ -23,7 +23,9 @@ VC/VPでは、資格情報を発行するIssuer、資格情報を保持するHol
 
 本プロジェクトでも、会社を発行側、社員を保持者に相当する役割、受付や確認担当者を検証者として捉えました。また、本人の同意、最小限の情報開示、短時間だけ有効な提示、失効という考え方を取り入れています。
 
-一方で、W3C形式のVCを発行して社員のWalletへ渡したり、社員側でVPを生成したりする仕組みは実装していません。検証は会社のバックエンドを信頼点とするオンライン方式です。
+一方で、W3C形式のVCを発行して社員のWalletへ渡したり、社員側でVPを生成したりする仕組みは実装していません。VPは、提示の改ざんを検知でき、その提示をHolder本人が作成したことを暗号学的に確認できる形式ですが、本プロジェクトではその役割を本人承認の仕組みで代替しています。
+
+また、識別子や公開鍵、失効情報を参照するVerifiable Data Registryに相当する部分も、会社のバックエンドに集約しています。検証は会社のバックエンドを信頼点とするオンライン方式です。
 
 ## 実装している機能
 
@@ -49,3 +51,4 @@ VC/VPでは、資格情報を発行するIssuer、資格情報を保持するHol
 - [VC/VPの考え方を参考に、独自の社員証アプリを作りました](../blog/posts/2026-08-03-vc-vp-inspired-employee-badge.md)
 - [W3C Verifiable Credentials Data Model 2.0](https://www.w3.org/TR/vc-data-model-2.0/)
 - [OpenID for Verifiable Presentations 1.0](https://openid.net/specs/openid-4-verifiable-presentations-1_0.html)
+- [OpenID for Verifiable Credential Issuance 1.0](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html)
