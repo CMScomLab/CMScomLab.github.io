@@ -34,3 +34,4 @@ Voronoi分割と、一つのベクトルを二つのセルへ割り当てる `A=
 - [テキストembeddingでもVoronoi分割は有効か](../blog/posts/2026-03-16-voronoi-text-embedding.md)
 - [Ploneサイト実データでベクトル検索の枝刈りアルゴリズムを比較](../blog/posts/2026-03-26-plone-vector-search-algorithm-benchmark.md)
 - [800件から1,000万件へ、Voronoi分割の研究を続けています](../blog/posts/2026-07-31-voronoi-research-at-scale.md)
+- [NumPyのint8行列積をRustで高速化し、20環境で検証しました](../blog/posts/2026-08-04-rust-int8-matmul-experiment.md)
