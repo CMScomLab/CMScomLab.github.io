@@ -25,4 +25,5 @@ SAENMは完成した規格ではなく、実際の研究運用を通して整理
 
 - [AI時代の研究運用を支えるSAENMという考え方](../blog/posts/2026-03-24-saenm-model-intro.md)
 - [SAENMは「セーンモデル」と読みます](../blog/posts/2026-07-30-how-to-pronounce-saenm.md)
+- [200を超える実験Notebookを支えるSAENMの実践](../blog/posts/2026-08-06-saenm-in-practice.md)
 - [saenm-notebook-template](https://github.com/CMScomLab/saenm-notebook-template)
