@@ -36,3 +36,4 @@ Voronoi分割と、一つのベクトルを二つのセルへ割り当てる `A=
 - [800件から1,000万件へ、Voronoi分割の研究を続けています](../blog/posts/2026-07-31-voronoi-research-at-scale.md)
 - [NumPyのint8行列積をRustで高速化し、20環境で検証しました](../blog/posts/2026-08-04-rust-int8-matmul-experiment.md)
 - [ベクトル検索のPoCはデータ準備から始まる](../blog/posts/2026-08-12-vector-search-poc-data-preparation.md)
+- [ベクトルが近いだけでは、良い検索とは限らない](../blog/posts/2026-08-18-vector-similarity-and-search-quality.md)
