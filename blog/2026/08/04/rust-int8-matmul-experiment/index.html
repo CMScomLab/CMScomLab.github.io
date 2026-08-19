@@ -1,0 +1,1128 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://lab.cmscom.jp/blog/2026/08/04/rust-int8-matmul-experiment/">
+      
+      
+        <link rel="prev" href="../../03/vc-vp-inspired-employee-badge/">
+      
+      
+        <link rel="next" href="../../06/saenm-in-practice/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../../assets/images/cmscom_lab.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>NumPyのint8行列積をRustで高速化し、20環境で検証しました - CMScomLab</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-Z0GQJHB711"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-Z0GQJHB711",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-Z0GQJHB711",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#numpyint8rust20" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../../../.." title="CMScomLab" class="md-header__button md-logo" aria-label="CMScomLab" data-md-component="logo">
+      
+  <img src="../../../../../assets/images/cmscom_lab.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CMScomLab
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              NumPyのint8行列積をRustで高速化し、20環境で検証しました
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/CMScomLab/cmscomlab.github.io" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../../about/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../projects/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Projects
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="../../../../" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Blog
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="CMScomLab" class="md-nav__button md-logo" aria-label="CMScomLab" data-md-component="logo">
+      
+  <img src="../../../../../assets/images/cmscom_lab.svg" alt="logo">
+
+    </a>
+    CMScomLab
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/CMScomLab/cmscomlab.github.io" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../projects/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Projects
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../projects/net-vis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    net-vis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../projects/image-vector-poc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Image Vector PoC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../projects/saenm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SAENM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../projects/vector-search-ann/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ベクトル検索 ANN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../projects/vc-vp-employee-badge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VC/VP Employee Badge
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../projects/lsh-cascade-poc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LSH Cascade PoC (Past)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../projects/graph-rag-poc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graph RAG PoC (Past)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      <a href="../../../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#numpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NumPyなら何でも速いわけではない
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        必要な計算だけをRustで実装する
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#int8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        int8のまま検索結果までつなげる
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CPUによって使える命令が違う
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pythonwheel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python向けのwheelは環境ごとに用意する
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20の実行環境で確かめた
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#numpy_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NumPyとの倍率は参考値として見る
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ベクトル検索に使える計算基盤ができた
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../../" class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    ブログトップへ戻る
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+              <div class="md-post__authors md-typeset">
+                
+                  <div class="md-profile md-post__profile">
+                    <span class="md-author md-author--long">
+                      <img src="../../../../../assets/images/avatar-terapyon.jpg" alt="Manabu TERADA (terapyon)">
+                    </span>
+                    <span class="md-profile__description">
+                      <strong>
+                        
+                          Manabu TERADA (terapyon)
+                        
+                      </strong>
+                      <br>
+                      Founder of CMScom.
+                    </span>
+                  </div>
+                
+              </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    メタデータ
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2026-08-04 00:00:00+00:00" class="md-ellipsis">2026年8月4日</time>
+                      </div>
+                    </li>
+                    
+                    
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+                          <span class="md-ellipsis">
+                            in
+                            
+                              <a href="../../../../category/projects/">Projects</a></span>
+                        </div>
+                      </li>
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              このページは約2分で読めます
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+            
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+
+
+
+  
+  
+
+
+<h1 id="numpyint8rust20">NumPyのint8行列積をRustで高速化し、20環境で検証しました</h1>
+<p>ベクトル検索の研究では、検索精度だけでなく、量子化したベクトルをCPU上でどのように計算するかも重要になります。</p>
+<p>現在進めている<a href="../../../../../projects/vector-search-ann/">ベクトル検索 ANNプロジェクト</a>の一環として、NumPyでは期待した速度が出なかったint8行列積をRustで実装しました。さらに、CPUごとに適した命令を選ぶ仕組みと環境別のwheelビルドを整え、20の実行環境で動作と性能を確認しました。</p>
+<!-- more -->
+
+<h2 id="numpy">NumPyなら何でも速いわけではない</h2>
+<p>NumPyは、Python上のループをCで実装された処理へまとめて渡すことで、高速な計算を実現しています。特に浮動小数点の行列積では、OpenBLASやApple Accelerateなど、CPU向けに最適化された計算ライブラリが使われることがあります。</p>
+<p>しかし、今回扱うのはint8同士の行列積です。NumPyの整数行列積はBLASへ委譲されず、NumPy自身の汎用ループで計算されます。浮動小数点の行列積で使われる高速なBLAS経路は利用できません。</p>
+<p>今回必要だったのは、入力をint8でコンパクトに保持しながら、積和演算の結果をint32へ蓄積する処理です。NumPyそのものが遅いという話ではなく、データ型と演算内容に合わせた専用実装に効果があるのではないかと考えました。</p>
+<h2 id="rust">必要な計算だけをRustで実装する</h2>
+<p>データの準備、実験、分析にはPythonとNumPyを使い、計算量が多い部分をRustで担当させています。</p>
+<p>今回はPythonから呼び出せる拡張としてint8行列積を実装しました。Python側の実験方法を変えず、計算を行う部分だけをRustへ置き換えられます。</p>
+<p>Pythonで試行錯誤し、処理内容が固まった部分をRustで高速化する。この役割分担を実際に動く形にできました。</p>
+<h2 id="int8">int8のまま検索結果までつなげる</h2>
+<p>ベクトル検索で目指しているのは、int8で保持しているデータを検索時にも別の型へ変換せず、そのままクエリとの内積計算に使うことです。</p>
+<p>検索対象をC連続配置のNumPy int8配列として用意すれば、Rust側はそのメモリを読み取り専用で借用できます。検索のたびにfloat32やint32の入力配列を作る必要はありません。クエリもint8のまま受け取り、積和演算だけをint32へ蓄積します。</p>
+<p>一般的な正方行列積に加えて、検索に近い次の形の計算もRustで実装し、検証しています。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>検索対象: (N, D) int8
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>クエリ  :    (D,) int8
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>内積結果:    (N,) int32
+</code></pre></div>
+<p>この形なら、検索対象のint8データをゼロコピーで参照しながら、各ベクトルとクエリの内積を計算できます。さらに、内積から上位k件の選択までをRust側で完結させれば、全件分のスコアをPythonへ戻す必要もありません。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>int8データをゼロコピーで参照
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    → int8クエリとの内積をint32へ積算
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    → Rust内で上位k件を選択
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    → IDとスコアだけをPythonへ返す
+</code></pre></div>
+<p>データを小さく保持することと、検索時に余計な変換やコピーを発生させないことを、一つの処理としてつなげていきます。</p>
+<h2 id="cpu">CPUによって使える命令が違う</h2>
+<p>同じCPU向けのプログラムでも、実際に使える命令はCPUの種類や世代によって異なります。</p>
+<ul>
+<li>x86_64の基本実装ではSSE2を基準とし、対応CPUではAVX2やAVX-512を使う</li>
+<li>ARM64では標準のNEONを基本実装で使い、対応CPUではdot product命令を追加で使う</li>
+<li>それ以外のCPUアーキテクチャでは基本実装を使う</li>
+</ul>
+<p>特定のCPUだけに合わせてビルドすれば高速化しやすい一方、そのバイナリを対応していないCPUで実行すると問題が起きます。配布先ごとに別のバイナリを用意する方法もありますが、運用は複雑になります。</p>
+<p>そこで今回は、同じプラットフォーム向けのバイナリに複数の実装を持たせ、実行時にCPUの機能を調べて適切な経路を選ぶようにしました。対応していない命令は実行せず、利用できる範囲で最も適した経路へ切り替えます。</p>
+<h2 id="pythonwheel">Python向けのwheelは環境ごとに用意する</h2>
+<p>CPU命令の違いは実行時に吸収できますが、Pythonから利用するwheelまで一つにまとめられるわけではありません。OS、CPUアーキテクチャ、Linuxで利用するlibcなどに合わせたwheelが必要です。</p>
+<p>GitHub Actionsでは、OS、CPUアーキテクチャ、Linuxのlibcという軸でwheelをビルドしています。</p>
+<ul>
+<li>Linux: x86_64、x86、ARM64など複数のCPUアーキテクチャ</li>
+<li>Windows: x64、x86、ARM64</li>
+<li>macOS: IntelとApple Silicon</li>
+<li>Linuxのlibc: manylinuxとmusllinux</li>
+</ul>
+<p>wheelは環境ごとに分かれますが、同じプラットフォームとCPUアーキテクチャであれば、AVX2やAVX-512などの違いに合わせてwheelを作り分ける必要はありません。一つのwheelに含まれるRustバイナリが、実行時に利用可能な命令を判定します。</p>
+<p>また、Pythonの安定ABIであるabi3を使い、一つのwheelをPython 3.8以降から利用できるようにしています。abi3ではPythonのバージョンごとにwheelを作り分けずに済みます。今回の設計では、PythonとRustの境界を越えるのは行列積ごとに一度だけで、その呼び出しの中で大きな計算をまとめて行います。CPUごとの性能を引き出しながら、配布物の種類と境界呼び出しを増やさない構成です。</p>
+<h2 id="20">20の実行環境で確かめた</h2>
+<p>作ったバイナリを、Linux、macOS、Windowsにまたがる20の実行環境で検証しました。同じ物理マシン上の異なるOSやコンテナ、CIの仮想環境も含むため、20台のマシンという意味ではありません。</p>
+<p>検証した範囲は、次のとおりです。</p>
+<ul>
+<li>Linux、macOS、Windowsの3 OS</li>
+<li>x86_64とARM64の2アーキテクチャ</li>
+<li>glibcとmuslの2種類の実行環境</li>
+<li>AVX2、AVX-512、dotprod、基本実装の各経路</li>
+</ul>
+<p>すべての環境で、int32による参照結果とのビット一致を確認できました。整数演算では、int32の範囲に収まる限り、SIMD経路によって加算順序が変わっても同じ結果になります。浮動小数点演算では一般に成立しない強い確認を、今回の整数行列積では行えました。</p>
+<p>代表的な結果は次のとおりです。1024×1024のint8行列同士を掛け合わせたときの計測時間で、複数回実行した中央値です。</p>
+<table>
+<thead>
+<tr>
+<th>CPUと環境</th>
+<th>選択された経路</th>
+<th style="text-align: right;">NumPy int8（参考）</th>
+<th style="text-align: right;">Rust</th>
+<th>同一バイナリ内の比較</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Apple M5 / macOS ARM64</td>
+<td>dotprod</td>
+<td style="text-align: right;">581.41 ms</td>
+<td style="text-align: right;">8.00 ms</td>
+<td>base 7.93 ms → dotprod 7.77 ms（同程度）</td>
+</tr>
+<tr>
+<td>Ryzen 9 5950X / Linux x86_64</td>
+<td>AVX2</td>
+<td style="text-align: right;">1325.91 ms</td>
+<td style="text-align: right;">4.43 ms</td>
+<td>base 17.12 ms → AVX2 4.85 ms（3.5倍）</td>
+</tr>
+<tr>
+<td>Ryzen 5 5500U / WSL2</td>
+<td>AVX2</td>
+<td style="text-align: right;">1634.49 ms</td>
+<td style="text-align: right;">17.32 ms</td>
+<td>base 58.19 ms → AVX2 17.78 ms（3.3倍）</td>
+</tr>
+<tr>
+<td>Ryzen 5 5500U / Windows 11</td>
+<td>AVX2</td>
+<td style="text-align: right;">2092.03 ms</td>
+<td style="text-align: right;">15.26 ms</td>
+<td>base 57.63 ms → AVX2 15.73 ms（3.7倍）</td>
+</tr>
+</tbody>
+</table>
+<p>NumPy列で測っているのは、入力も出力もint8のまま行う <code>a @ b</code> です。この計算はint8の範囲を超えると折り返すため、処理時間の参考値として掲載しています。Rust実装はint8の入力をint32へ積算し、正しさについては別に <code>a.astype(np.int32) @ b.astype(np.int32)</code> の結果と比較しています。速度表のNumPy列とRust列は、同じ結果を返す実装同士の比較ではありません。</p>
+<p>また、NumPyの整数行列積は単一スレッドですが、Rust列はRayonを使って出力行を並列に計算しています。そのためNumPyに対する倍率には、専用の整数カーネル、SIMD、マルチスレッド化の効果がすべて含まれます。右端のbaseとSIMDの比較は、どちらも同じRayon並列で実行し、同じRustバイナリ内で命令経路だけを切り替えています。SIMD自体の効果を見るには右端が適切です。</p>
+<p>通常評価と経路を強制した評価は別々に測定しているため、Rustの時間には多少の差があります。</p>
+<p>同じRyzen 5 5500UをWindows 11とWSL2から測定した結果では、基本実装が58.19 msと57.63 ms、AVX2経路が17.78 msと15.73 msでした。少なくとも今回の条件では、WSL2を介してもCPU命令の検出と高速化が機能し、Windowsネイティブと大きく離れない結果になりました。</p>
+<p>同じ環境内で基本実装とSIMDを使う実装を比較すると、x86_64では約2.7倍から5.8倍の改善が見られました。AVX-512を利用できる環境の一つでは、AVX2経路と比べて約21%の上積みも確認できました。</p>
+<p>一方、ARM64のdot product命令は、実機で基本実装と同程度から最大約1.4倍でした。ARM64の基本実装は、必須のNEONを使ってすでに自動ベクトル化されています。dot product命令は、そのNEON経路に対する追加の最適化です。</p>
+<p>x86_64の基本実装がSSE2を基準としてAVX2やAVX-512と比較されるのに対し、ARM64ではNEONを使う基本実装とdot product命令を比較しています。同じbase対SIMDでも比較の出発点が異なるため、ARM64側の差が小さいことにも理由があります。</p>
+<h2 id="numpy_1">NumPyとの倍率は参考値として見る</h2>
+<p>一部の環境では、Rust実装がNumPyのint8行列積に対して非常に大きな速度差を示しました。ただし、NumPyとの倍率は、NumPyのバージョンやビルド時の最適化、CPU、OS、仮想化などの影響を受けます。</p>
+<p>さらに、先ほど説明したとおり、NumPy列とRust列では出力型とスレッド条件も異なります。そのため、環境をまたいだ単純な倍率を競うのではなく、同じマシン上で基本実装からSIMD経路へ切り替えたときの変化を主な指標にしました。</p>
+<p>今回の結果は「Rustなら常にNumPyより速い」というものではありません。計算内容が限定でき、データ型やCPU命令に合わせた実装ができる場合には、部分的なRust化が有効な選択肢になるという結果です。</p>
+<h2 id="_1">ベクトル検索に使える計算基盤ができた</h2>
+<p><a href="../../../07/31/voronoi-research-at-scale/">前回の記事</a>で紹介したように、ベクトル検索の研究は1,000万件規模の検証、IVF系の探索、SQ8をはじめとする量子化へ広がっています。データが大きくなるほど、ベクトルを小さく保持することと、その形式のまま効率よく計算することの両方が重要になります。</p>
+<p>今回、Pythonから使えるRust実装、CPU命令の実行時選択、環境ごとのwheelビルド、20の実行環境による検証までを一通り実現しました。さらに、検索対象ベクトルと一つのクエリとの内積を計算する形でも、int8データを変換せずに扱えることを確認しています。必要な計算だけをRust化し、命令セットの異なるCPUへ同じ実装を届けられる計算基盤になっています。</p>
+<p>この計算を上位k件の選択まで融合し、ベクトル検索処理として仕上げていきます。また、CPU上で短時間の計算を行うAWS Lambdaでの活用も検証していきます。<a href="https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/foundation-arch.html">AWS Lambdaではx86_64とARM64のアーキテクチャを選択できます</a>。アーキテクチャごとのwheelと、実行環境のCPU機能に合わせた実行時ディスパッチを、そのまま活用できるテーマです。</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最終更新日">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2026年8月19日 07:08:47 UTC">2026年8月19日</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+  
+
+
+  
+
+
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 <a href="https://www.cmscom.jp">CMScom</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "search.suggest"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
